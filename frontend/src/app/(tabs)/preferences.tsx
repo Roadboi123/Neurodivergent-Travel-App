@@ -26,6 +26,7 @@ import { SENSORY_KEYS, SENSORY_META, type SensoryKey } from '@/constants/presets
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { usePresets } from '@/context/presets-context';
 import { useAuth } from '@/context/auth-context';
+import { useTheme } from '@/contexts/theme-context';
 import type { Preference, SensitivityLevel } from '@/types/preference';
 
 export default function UserPreferencesScreen() {
@@ -34,6 +35,7 @@ export default function UserPreferencesScreen() {
   const [renaming, setRenaming] = useState(false);
 
   const isDark = useColorScheme() === 'dark';
+  const { toggleScheme } = useTheme();
   const palette = getPalette(isDark);
 
   // Rows reflect the currently-selected preset's values; editing one writes
@@ -73,6 +75,23 @@ export default function UserPreferencesScreen() {
             <GradientDot size={16} style={styles.titleDot} />
           </View>
         </View>
+
+        <TouchableOpacity
+          onPress={toggleScheme}
+          accessibilityRole="switch"
+          accessibilityLabel="Dark mode"
+          accessibilityState={{ checked: isDark }}
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+            paddingVertical: 14, paddingHorizontal: 18, marginBottom: 22,
+            backgroundColor: palette.surface, borderColor: palette.border, borderWidth: 1,
+            borderRadius: Radii.input }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <Ionicons name={isDark ? 'moon-outline' : 'sunny-outline'} size={20} color={palette.textPrimary} />
+            <Text style={{ color: palette.textPrimary, fontFamily: Fonts?.semibold, fontSize: 16 }}>Dark mode</Text>
+          </View>
+          <Ionicons name={isDark ? 'toggle' : 'toggle-outline'} size={32}
+            color={isDark ? CLEARWAY.blue : palette.textMuted} />
+        </TouchableOpacity>
 
         {!isLoggedIn ? (
           <Glass radius={Radii.cardLg} shadow={2} style={styles.splashWrap}>

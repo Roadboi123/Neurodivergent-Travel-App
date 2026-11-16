@@ -707,7 +707,7 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
       visible={visible}
       onRequestClose={onClose}
     >
-      <SafeAreaView style={[styles.modalSheet, { backgroundColor: CLEARWAY.bgBase }]}>
+      <SafeAreaView style={[styles.modalSheet, { backgroundColor: isDark ? palette.background : CLEARWAY.bgBase }]}>
         {/* Header row — back + home top-left (mirrors the journey screen) */}
         <View style={[styles.headerRow, { borderBottomColor: palette.divider }]}>
           <View style={styles.navButtonsRow}>
@@ -738,7 +738,7 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
 
           {/* Compact 2×2 map key, inline with the nav buttons (above the map's
               Hide-warnings button) — same content/position as the live journey. */}
-          <View style={[styles.headerLegend, { backgroundColor: '#f6f8fb', borderColor: palette.border }]}>
+          <View style={[styles.headerLegend, { backgroundColor: palette.surface, borderColor: palette.border }]}>
             <View style={styles.legendCol}>
               <View style={styles.legendRowItem}>
                 <View style={[styles.legendDot, { backgroundColor: '#5b9d6b' }]} />
@@ -830,7 +830,7 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
                   }}
                   style={[
                     styles.mapPill,
-                    { backgroundColor: hideChanges ? CLEARWAY.blueStrong : '#f6f8fb', borderColor: hideChanges ? CLEARWAY.blueStrong : palette.border },
+                    { backgroundColor: hideChanges ? CLEARWAY.blueStrong : palette.surface, borderColor: hideChanges ? CLEARWAY.blueStrong : palette.border },
                   ]}
                   accessibilityRole="button"
                   accessibilityLabel={hideChanges ? 'Show change icons on map' : 'Hide change icons from map'}
@@ -847,7 +847,7 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
                   }}
                   style={[
                     styles.mapPill,
-                    { backgroundColor: hideAll ? CLEARWAY.blueStrong : '#f6f8fb', borderColor: hideAll ? CLEARWAY.blueStrong : palette.border },
+                    { backgroundColor: hideAll ? CLEARWAY.blueStrong : palette.surface, borderColor: hideAll ? CLEARWAY.blueStrong : palette.border },
                   ]}
                   accessibilityRole="button"
                   accessibilityLabel={hideAll ? 'Show sensory warnings on map' : 'Hide sensory warnings from map'}
@@ -868,8 +868,8 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
             style={[
             styles.sheetPanel,
             {
-              backgroundColor: GLASS.light.fill,
-              borderColor: GLASS.light.border,
+              backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill,
+              borderColor: GLASS[isDark ? 'dark' : 'light'].border,
               height: SHEET_HEIGHT,
               position: 'absolute',
               bottom: 0,
@@ -878,7 +878,7 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
               transform: [{ translateY: panY }]
             }
           ]}>
-            <BlurView intensity={GLASS.light.blur} tint="light" style={StyleSheet.absoluteFill} pointerEvents="none" />
+            <BlurView intensity={GLASS[isDark ? 'dark' : 'light'].blur} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} pointerEvents="none" />
             {/* Drag handle header wrapper. `touchAction: none` on web stops the
                 browser from claiming the vertical drag as a scroll/overscroll
                 gesture (which cancelled the pan and made the sheet snap). */}
@@ -1045,10 +1045,10 @@ export function RouteDetailsModal({ visible, route: propRoute, originLabel, dest
                 onPress={() => setSelectedWarning(null)}
               />
               <View style={styles.warningCenterContainer} pointerEvents="box-none">
-                <View style={[styles.warningCard, { backgroundColor: '#eef1f5', borderColor: palette.border }]}>
+                <View style={[styles.warningCard, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}>
                   <TouchableOpacity
                     onPress={() => setSelectedWarning(null)}
-                    style={[styles.warningCancelBtn, { backgroundColor: '#eef1f5', borderColor: palette.border }]}
+                    style={[styles.warningCancelBtn, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}
                     accessibilityRole="button"
                     accessibilityLabel="Dismiss"
                   >

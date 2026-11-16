@@ -1,5 +1,5 @@
 /**
- * Clearway design tokens — a single, calm glassmorphism theme.
+ * Clearway design tokens for light and dark glass surfaces.
  *
  * The app used to ship the neo-brutalist "Wero" look (ink outlines, hard offset
  * shadows, neon fills) with a light/dark toggle. Clearway replaces that with one
@@ -8,14 +8,13 @@
  *
  * Read `DESIGN.md` before any UI work. New code should use the CLEARWAY / GLASS /
  * Radii / softShadow tokens directly. The older export names (BRAND, getPalette,
- * getAccents, hardShadow, …) are kept as compatibility shims that now return calm
- * Clearway values, so the tree keeps compiling while screens are migrated.
+ * getAccents, hardShadow, …) remain for compatibility with existing screens.
  */
 
 import { Platform } from 'react-native';
 
 /* ------------------------------------------------------------------ *
- * Core Clearway palette (single theme — no light/dark variants)
+ * Core Clearway light palette and dark counterparts
  * ------------------------------------------------------------------ */
 
 export const CLEARWAY = {
@@ -48,6 +47,18 @@ export const CLEARWAY = {
   bad: '#cf6b5b',
 
   hairline: 'rgba(40,48,60,0.14)',
+} as const;
+
+export const DARK_CLEARWAY = {
+  bgBase: '#141c2b',
+  meshBlue: '#243955',
+  meshLilac: '#302b48',
+  meshPeach: '#473a39',
+  heading: '#f5f7fb',
+  ink: '#e8edf5',
+  textSecondary: '#c3ccda',
+  textMuted: '#a5b1c2',
+  blueStrong: '#9cc4ff',
 } as const;
 
 /* ------------------------------------------------------------------ *
@@ -264,7 +275,7 @@ export const resolveLineColor = (line: string): { bg: string; text: string } | n
 };
 
 /* ------------------------------------------------------------------ *
- * Back-compat: semantic colours (single theme — isDark ignored)
+ * Back-compat: semantic colours for both modes
  * ------------------------------------------------------------------ */
 
 export type SemanticColors = {
@@ -285,10 +296,19 @@ const CLEARWAY_SEMANTIC: SemanticColors = {
   neutralSurface: 'rgba(255,255,255,0.45)',
 };
 
-export const getSemanticColors = (_isDark?: boolean): SemanticColors => CLEARWAY_SEMANTIC;
+const DARK_SEMANTIC: SemanticColors = {
+  warningSurface: 'rgba(211,154,60,0.22)',
+  warningBorder: 'rgba(236,180,87,0.58)',
+  warningText: '#f3ca7d',
+  warningIcon: '#f3ca7d',
+  link: DARK_CLEARWAY.blueStrong,
+  neutralSurface: 'rgba(44,58,78,0.8)',
+};
+
+export const getSemanticColors = (isDark = false): SemanticColors => isDark ? DARK_SEMANTIC : CLEARWAY_SEMANTIC;
 
 /* ------------------------------------------------------------------ *
- * Back-compat: semantic surface/text palette (single theme)
+ * Back-compat: semantic surface/text palettes
  * ------------------------------------------------------------------ */
 
 export type ThemePalette = {
@@ -313,12 +333,23 @@ const clearwayPalette: ThemePalette = {
   textMuted: CLEARWAY.textMuted,
 };
 
-export const Palette: { light: ThemePalette; dark: ThemePalette } = {
-  light: clearwayPalette,
-  dark: clearwayPalette,
+const darkPalette: ThemePalette = {
+  background: DARK_CLEARWAY.bgBase,
+  surface: 'rgba(36,48,66,0.88)',
+  border: 'rgba(190,207,231,0.24)',
+  borderStrong: 'rgba(190,207,231,0.38)',
+  divider: 'rgba(190,207,231,0.20)',
+  textPrimary: DARK_CLEARWAY.ink,
+  textSecondary: DARK_CLEARWAY.textSecondary,
+  textMuted: DARK_CLEARWAY.textMuted,
 };
 
-export const getPalette = (_isDark?: boolean): ThemePalette => clearwayPalette;
+export const Palette: { light: ThemePalette; dark: ThemePalette } = {
+  light: clearwayPalette,
+  dark: darkPalette,
+};
+
+export const getPalette = (isDark = false): ThemePalette => isDark ? darkPalette : clearwayPalette;
 
 /** Legacy expo-template colour map (kept; unused by Clearway screens). */
 export const Colors = {
@@ -331,11 +362,11 @@ export const Colors = {
     tabIconSelected: CLEARWAY.blueStrong,
   },
   dark: {
-    text: CLEARWAY.ink,
-    background: CLEARWAY.bgBase,
-    tint: CLEARWAY.blueStrong,
-    icon: CLEARWAY.textMuted,
-    tabIconDefault: CLEARWAY.textMuted,
-    tabIconSelected: CLEARWAY.blueStrong,
+    text: DARK_CLEARWAY.ink,
+    background: DARK_CLEARWAY.bgBase,
+    tint: DARK_CLEARWAY.blueStrong,
+    icon: DARK_CLEARWAY.textMuted,
+    tabIconDefault: DARK_CLEARWAY.textMuted,
+    tabIconSelected: DARK_CLEARWAY.blueStrong,
   },
 };

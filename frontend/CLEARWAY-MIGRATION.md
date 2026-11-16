@@ -9,8 +9,9 @@ glassmorphism language (source: `Clearway.pdf` at the repo root). Branch:
   text + soft-blue accent), `GLASS`, `Radii`, `softShadow`, `MESH`, `ClearwayFonts` (Hanken
   Grotesk). Old exports (`getPalette`/`getAccents`/`getSemanticColors`/`hardShadow`/`BRAND`) kept
   as calm-value compatibility shims. `TFL_LINE_COLORS` + softened sensory ramp retained.
-- Light/dark removed: `hooks/use-color-scheme` → always `'light'`; `contexts/theme-context` →
-  no-op; `ThemeToggle` deleted; `_layout.tsx` single nav theme + Hanken fonts.
+- Light/dark restored: `hooks/use-color-scheme` reads the persisted theme context (falling back
+  to the device setting); the Preferences switch changes modes, and `_layout.tsx` selects the
+  matching navigation theme and status bar. Hanken fonts remain shared by both modes.
 - New primitives in `components/ui/`: `glass.tsx` (`Glass`), `glass-card.tsx`, `glass-button.tsx`,
   `chip.tsx`, `gradient-dot.tsx`; `gradient-background.tsx` rewritten to the pastel mesh.
 - Deps added: `expo-blur`, `@expo-google-fonts/hanken-grotesk`.

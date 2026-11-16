@@ -980,7 +980,7 @@ export default function JourneyScreen() {
             <Ionicons name="arrow-back" size={20} color={palette.textPrimary} />
           </TouchableOpacity>
 
-          <View style={[styles.legendCard, { backgroundColor: '#f6f8fb', borderColor: palette.border }]}>
+          <View style={[styles.legendCard, { backgroundColor: palette.surface, borderColor: palette.border }]}>
             <View style={styles.legendCol}>
               <View style={styles.legendRowItem}>
                 <View style={[styles.legendDot, { backgroundColor: '#5b9d6b' }]} />
@@ -1028,7 +1028,7 @@ export default function JourneyScreen() {
             }}
             style={[
               styles.topPill,
-              { backgroundColor: hideChanges ? CLEARWAY.blueStrong : '#f6f8fb', borderColor: hideChanges ? CLEARWAY.blueStrong : palette.border },
+              { backgroundColor: hideChanges ? CLEARWAY.blueStrong : palette.surface, borderColor: hideChanges ? CLEARWAY.blueStrong : palette.border },
             ]}
             accessibilityRole="button"
             accessibilityLabel={hideChanges ? 'Show change icons on map' : 'Hide change icons from map'}
@@ -1047,7 +1047,7 @@ export default function JourneyScreen() {
             }}
             style={[
               styles.topPill,
-              { backgroundColor: hideAll ? CLEARWAY.blueStrong : '#f6f8fb', borderColor: hideAll ? CLEARWAY.blueStrong : palette.border },
+              { backgroundColor: hideAll ? CLEARWAY.blueStrong : palette.surface, borderColor: hideAll ? CLEARWAY.blueStrong : palette.border },
             ]}
             accessibilityRole="button"
             accessibilityLabel={hideAll ? 'Show sensory warnings on map' : 'Hide sensory warnings from map'}
@@ -1081,8 +1081,8 @@ export default function JourneyScreen() {
       {/* Grouped Right Capsule-style Rail — tap a type to report it here */}
       <View style={[styles.reportCapsule, { top: insets.top + 144, backgroundColor: palette.surface, borderColor: palette.border }]}>
         <View style={[styles.reportCapsuleHeaderPill, { backgroundColor: CLEARWAY.okay }]}>
-          <Text style={[styles.reportCapsuleHeader, { color: CLEARWAY.heading }]}>Report</Text>
-          <Text style={[styles.reportCapsuleHeader, { color: CLEARWAY.heading }]}>below</Text>
+          <Text style={[styles.reportCapsuleHeader, { color: palette.textPrimary }]}>Report</Text>
+          <Text style={[styles.reportCapsuleHeader, { color: palette.textPrimary }]}>below</Text>
         </View>
         <View style={[styles.reportDivider, { backgroundColor: palette.divider }]} />
         {REPORT_OPTIONS.map((option) => {
@@ -1113,14 +1113,14 @@ export default function JourneyScreen() {
         style={[
           styles.sheetPanel,
           {
-            backgroundColor: GLASS.light.fill,
-            borderColor: GLASS.light.border,
+            backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill,
+            borderColor: GLASS[isDark ? 'dark' : 'light'].border,
             height: SHEET_HEIGHT,
             transform: [{ translateY: panY }],
           },
         ]}
       >
-        <BlurView intensity={GLASS.light.blur} tint="light" style={StyleSheet.absoluteFill} pointerEvents="none" />
+        <BlurView intensity={GLASS[isDark ? 'dark' : 'light'].blur} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} pointerEvents="none" />
         <View
           style={[styles.sheetHeaderTouch, Platform.OS === 'web' ? ({ touchAction: 'none' } as any) : null]}
           {...headerPanResponder.panHandlers}>
@@ -1250,14 +1250,14 @@ export default function JourneyScreen() {
         <View style={styles.reportOverlayRoot} pointerEvents="box-none">
           <View style={styles.reportBackdrop} pointerEvents="none" />
           <View style={styles.reportCenterContainer} pointerEvents="box-none">
-            <View style={[styles.reportInputPanel, { backgroundColor: '#eef1f5', borderColor: palette.border }]}>
+            <View style={[styles.reportInputPanel, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}>
               <TouchableOpacity
                 onPress={() => {
                   analytics.trackClick();
                   setReportingType(null);
                   analytics.endDisruptionReport(null);
                 }}
-                style={[styles.reportCancelBtn, { backgroundColor: '#eef1f5', borderColor: palette.border }]}
+                style={[styles.reportCancelBtn, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}
                 accessibilityRole="button"
                 accessibilityLabel="Cancel report"
               >
@@ -1290,10 +1290,10 @@ export default function JourneyScreen() {
             onPress={() => setSelectedWarning(null)}
           />
           <View style={styles.reportCenterContainer} pointerEvents="box-none">
-            <View style={[styles.warningCard, { backgroundColor: '#eef1f5', borderColor: palette.border }]}>
+            <View style={[styles.warningCard, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}>
               <TouchableOpacity
                 onPress={() => setSelectedWarning(null)}
-                style={[styles.reportCancelBtn, { backgroundColor: '#eef1f5', borderColor: palette.border }]}
+                style={[styles.reportCancelBtn, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}
                 accessibilityRole="button"
                 accessibilityLabel="Dismiss"
               >
@@ -1344,10 +1344,10 @@ export default function JourneyScreen() {
             onPress={() => setSelectedCluster(null)}
           />
           <View style={styles.reportCenterContainer} pointerEvents="box-none">
-            <View style={[styles.warningCard, { backgroundColor: '#eef1f5', borderColor: palette.border }]}>
+            <View style={[styles.warningCard, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}>
               <TouchableOpacity
                 onPress={() => setSelectedCluster(null)}
-                style={[styles.reportCancelBtn, { backgroundColor: '#eef1f5', borderColor: palette.border }]}
+                style={[styles.reportCancelBtn, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}
                 accessibilityRole="button"
                 accessibilityLabel="Dismiss"
               >
@@ -1398,7 +1398,7 @@ export default function JourneyScreen() {
         <View style={styles.reportOverlayRoot} pointerEvents="box-none">
           <View style={styles.reportBackdrop} pointerEvents="none" />
           <View style={styles.reportCenterContainer} pointerEvents="box-none">
-            <View style={[styles.warningCard, { backgroundColor: '#eef1f5', borderColor: palette.border }]}>
+            <View style={[styles.warningCard, { backgroundColor: isDark ? '#263448' : '#eef1f5', borderColor: palette.border }]}>
               <View
                 style={[
                   styles.warningCardIcon,

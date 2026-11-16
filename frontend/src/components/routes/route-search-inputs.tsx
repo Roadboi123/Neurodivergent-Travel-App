@@ -388,7 +388,7 @@ export function RouteSearchInputs({
         <View
           style={[
             styles.suggestionsDropdown,
-            { backgroundColor: '#f6f8fb', borderColor: palette.borderStrong },
+            { backgroundColor: palette.surface, borderColor: palette.borderStrong },
           ]}>
           {suggestionsLoading && suggestions.length === 0 ? (
             <View style={styles.suggestionsLoadingContainer}>

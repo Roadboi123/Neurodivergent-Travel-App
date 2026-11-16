@@ -225,9 +225,9 @@ export function RouteTimeSheet({
       <Pressable style={styles.backdrop} onPress={onClose}>
         <TouchableOpacity
           activeOpacity={1}
-          style={[styles.sheet, { backgroundColor: GLASS.light.fill, borderColor: GLASS.light.border }]}
+          style={[styles.sheet, { backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill, borderColor: GLASS[isDark ? 'dark' : 'light'].border }]}
           onPress={(e) => e.stopPropagation()}>
-          <BlurView intensity={GLASS.light.blur} tint="light" style={styles.sheetBlur} />
+          <BlurView intensity={GLASS[isDark ? 'dark' : 'light'].blur} tint={isDark ? 'dark' : 'light'} style={styles.sheetBlur} />
           <View style={styles.handle} />
 
           <View style={styles.header}>

@@ -4,6 +4,7 @@ import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } fro
 
 import { Glass } from '@/components/ui/glass';
 import { CLEARWAY, ClearwayFonts, Radii, softShadow } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
@@ -33,7 +34,8 @@ export function GlassButton({
   style,
   accessibilityLabel,
 }: GlassButtonProps) {
-  const tint = variant === 'primary' ? CLEARWAY.white : CLEARWAY.ink;
+  const isDark = useColorScheme() === 'dark';
+  const tint = variant === 'primary' ? CLEARWAY.white : isDark ? '#e8edf5' : CLEARWAY.ink;
 
   const content = (
     <View style={styles.row}>
@@ -58,7 +60,9 @@ export function GlassButton({
       ]}>
       {variant === 'primary' ? (
         <LinearGradient
-          colors={[CLEARWAY.bluePillFrom, CLEARWAY.bluePillTo, CLEARWAY.blue]}
+          colors={isDark
+            ? ['#4174b8', '#315c97', '#254976']
+            : [CLEARWAY.blue, '#457dc5', '#3169b4']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={[styles.pad, { borderRadius: Radii.pill }, softShadow(1)]}>

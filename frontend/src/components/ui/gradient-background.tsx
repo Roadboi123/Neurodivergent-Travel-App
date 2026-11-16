@@ -1,7 +1,9 @@
 import { Image } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View } from 'react-native';
 
-import { MESH } from '@/constants/theme';
+import { DARK_CLEARWAY, MESH } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 // The soft blue-blur backdrop asset (a diffuse radial glow on white). Used in
 // place of drawn blob shapes for a calmer, photo-quality blur.
@@ -18,6 +20,17 @@ const BLUR_BG = require('../../../assets/images/drp-blue-blur-bg.png');
  * shared transparent background would let screens bleed through each other.
  */
 export function GradientBackground() {
+  const isDark = useColorScheme() === 'dark';
+  if (isDark) {
+    return (
+      <LinearGradient
+        colors={[DARK_CLEARWAY.meshBlue, DARK_CLEARWAY.bgBase, DARK_CLEARWAY.meshLilac]}
+        locations={[0, 0.55, 1]}
+        style={StyleSheet.absoluteFill}
+        pointerEvents="none"
+      />
+    );
+  }
   return (
     <View style={[StyleSheet.absoluteFill, { backgroundColor: MESH.base }]} pointerEvents="none">
       <Image

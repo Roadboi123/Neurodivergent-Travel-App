@@ -1,4 +1,4 @@
-import { DefaultTheme, ThemeProvider as NavThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import {
   HankenGrotesk_400Regular,
   HankenGrotesk_500Medium,
@@ -16,8 +16,8 @@ import { Platform } from 'react-native';
 import 'react-native-reanimated';
 import * as Notifications from 'expo-notifications';
 
-import { CLEARWAY } from '@/constants/theme';
-import { ThemeProvider } from '@/contexts/theme-context';
+import { CLEARWAY, DARK_CLEARWAY } from '@/constants/theme';
+import { ThemeProvider, useTheme } from '@/contexts/theme-context';
 import { NavBarProvider } from '@/contexts/navbar-context';
 import { ServicesProvider } from '@/services/services-context';
 import { AuthProvider, useAuth } from '@/context/auth-context';
@@ -40,9 +40,14 @@ const navTheme = {
   ...DefaultTheme,
   colors: { ...DefaultTheme.colors, background: CLEARWAY.bgBase },
 };
+const darkNavTheme = {
+  ...DarkTheme,
+  colors: { ...DarkTheme.colors, background: DARK_CLEARWAY.bgBase },
+};
 
 // Inner tree (kept so it can mount the profile modal over the nav stack).
 function ThemedApp() {
+  const { scheme } = useTheme();
   const { isProfileModalVisible, setProfileModalVisible } = useAuth();
   // Track the active route so the in-app Back button can return to the previous
   // screen instead of falling through to the Home anchor.
@@ -52,12 +57,12 @@ function ThemedApp() {
   }, [pathname]);
 
   return (
-    <NavThemeProvider value={navTheme}>
+    <NavThemeProvider value={scheme === 'dark' ? darkNavTheme : navTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="journey" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="dark" />
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <ProfileModal
         visible={isProfileModalVisible}
         onClose={() => setProfileModalVisible(false)}

@@ -380,7 +380,7 @@ export default function RoutesScreen() {
         </TouchableOpacity>
       )}
 
-      <ScrollView style={{ backgroundColor: palette.background }} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ backgroundColor: 'transparent' }} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
         {/* Which sensory preset these results are scored against (+ shortcut to change) */}
         {isLoggedIn && pool.length > 0 && <PresetIndicator />}

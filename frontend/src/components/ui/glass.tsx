@@ -3,6 +3,7 @@ import { type ReactNode } from 'react';
 import { Platform, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { GLASS, type GlassTone, Radii, softShadow } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export interface GlassProps {
   children?: ReactNode;
@@ -31,7 +32,8 @@ export function Glass({
   bordered = true,
   style,
 }: GlassProps) {
-  const g = GLASS[tone];
+  const effectiveTone = useColorScheme() === 'dark' ? 'dark' : tone;
+  const g = GLASS[effectiveTone];
   return (
     <View
       style={[
@@ -43,7 +45,7 @@ export function Glass({
       ]}>
       <BlurView
         intensity={g.blur}
-        tint={tone === 'dark' ? 'dark' : 'light'}
+        tint={effectiveTone}
         // Android needs the dimezis method for a real blur; web/iOS use the default.
         experimentalBlurMethod={Platform.OS === 'android' ? 'dimezisBlurView' : undefined}
         style={StyleSheet.absoluteFill}
