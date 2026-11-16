@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { getAccents, getPalette, softShadow } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuth } from '@/context/auth-context';
-import { previousPath } from '@/services/nav-history';
+import { takePreviousPath } from '@/services/nav-history';
 
 export interface HeaderNavProps {
   onProfilePress?: () => void;
@@ -28,7 +28,7 @@ export function HeaderNav({ onProfilePress, showHome = true }: HeaderNavProps) {
   // Return to the screen we actually came from (tracked in nav-history); fall
   // back to the native stack, then Home, so Back never dead-ends.
   const goBack = () => {
-    const prev = previousPath();
+    const prev = takePreviousPath();
     if (prev) {
       router.navigate(prev as any);
     } else if (router.canGoBack()) {

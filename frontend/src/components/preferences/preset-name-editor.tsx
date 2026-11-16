@@ -66,7 +66,7 @@ export function PresetNameEditor() {
           <TextInput
             style={[
               styles.input,
-              { color: palette.textPrimary, backgroundColor: 'rgba(255,255,255,0.5)', borderColor: palette.border },
+              { color: palette.textPrimary, backgroundColor: palette.surface, borderColor: palette.border },
             ]}
             value={drafts[preset.id] ?? ''}
             onChangeText={(text) => setDrafts((d) => ({ ...d, [preset.id]: text }))}

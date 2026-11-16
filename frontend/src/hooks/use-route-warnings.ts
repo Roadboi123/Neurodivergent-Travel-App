@@ -191,19 +191,16 @@ export function useRouteWarnings(
     [warnings, accents, dismissedIds, hideAll],
   );
 
-  // Own warning: delete from the DB (gone for everyone). Optimistically drop it.
+  // Own warning: only remove it locally after the backend confirms deletion.
+  // Otherwise a failed request would falsely hide the report and prevent retry.
   const removeOwnWarning = useCallback(
     async (warning: WarningItem) => {
       analytics.trackWarningInteraction();
-      setSelectedWarning(null);
-      removeReportedWarning(warning.id);
-      setDismissedIds((prev) => {
-        const next = new Set(prev);
-        next.add(warning.id);
-        return next;
-      });
       try {
-        await routesService.deleteWarning(warning.id, username || 'anonymous');
+        const result = await routesService.deleteWarning(warning.id, username || 'anonymous');
+        if (!result.deleted) return;
+        removeReportedWarning(warning.id);
+        setSelectedWarning(null);
       } catch (err) {
         console.warn('Failed to delete warning on backend:', err);
       }

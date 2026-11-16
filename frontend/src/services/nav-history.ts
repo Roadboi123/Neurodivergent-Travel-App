@@ -10,21 +10,17 @@
 
 let stack: string[] = [];
 
-/** Record the currently-active path. Trims forward history when going back. */
+/** Record a visit, including a return to a tab visited earlier. */
 export function recordPath(path: string): void {
   if (!path) return;
   if (stack[stack.length - 1] === path) return;
-  const existingIdx = stack.indexOf(path);
-  if (existingIdx !== -1) {
-    // Returning to a path already in history — drop everything after it.
-    stack = stack.slice(0, existingIdx + 1);
-  } else {
-    stack.push(path);
-    if (stack.length > 25) stack.shift();
-  }
+  stack.push(path);
+  if (stack.length > 25) stack.shift();
 }
 
-/** The path before the current one, or null if there's nothing to go back to. */
-export function previousPath(): string | null {
-  return stack.length >= 2 ? stack[stack.length - 2] : null;
+/** Pop the current visit before navigating so Back does not bounce forward. */
+export function takePreviousPath(): string | null {
+  if (stack.length < 2) return null;
+  stack.pop();
+  return stack[stack.length - 1];
 }

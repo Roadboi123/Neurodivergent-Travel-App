@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { CLEARWAY, ClearwayFonts, GLASS, getPalette, softShadow } from '@/constants/theme';
+import { CLEARWAY, DARK_CLEARWAY, ClearwayFonts, GLASS, getPalette, softShadow } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useNavBar } from '@/contexts/navbar-context';
 
@@ -21,7 +21,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarActiveTintColor: CLEARWAY.blueStrong,
+        tabBarActiveTintColor: isDark ? DARK_CLEARWAY.blueStrong : CLEARWAY.blueStrong,
         tabBarInactiveTintColor: palette.textMuted,
         tabBarLabelStyle: {
           fontFamily: ClearwayFonts.semibold,
@@ -36,8 +36,8 @@ export default function TabLayout() {
           ? undefined
           : () => (
               <BlurView
-                intensity={GLASS.light.blur}
-                tint="light"
+                intensity={GLASS[isDark ? 'dark' : 'light'].blur}
+                tint={isDark ? 'dark' : 'light'}
                 style={[StyleSheet.absoluteFill, { borderRadius: 33, overflow: 'hidden' }]}
               />
             ),
@@ -50,10 +50,10 @@ export default function TabLayout() {
               bottom: 16,
               height: 66,
               borderRadius: 33,
-              backgroundColor: GLASS.light.fill,
+              backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill,
               borderWidth: 1,
               borderTopWidth: 1,
-              borderColor: GLASS.light.border,
+              borderColor: GLASS[isDark ? 'dark' : 'light'].border,
               paddingTop: 8,
               paddingBottom: 8,
               ...softShadow(3),

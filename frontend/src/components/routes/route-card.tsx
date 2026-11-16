@@ -226,9 +226,9 @@ function RouteCardBase({
             styles.statsWidget,
             { backgroundColor: CLEARWAY.bluePillFrom, borderColor: CLEARWAY.bluePillTo },
           ]}>
-          <Text style={[styles.statsTime, { color: CLEARWAY.heading }]}>{route.duration}</Text>
-          <Text style={[styles.statsUnit, { color: CLEARWAY.ink }]}>min</Text>
-          <Text style={[styles.statsCost, { color: CLEARWAY.ink }]}>
+          <Text style={[styles.statsTime, { color: palette.textPrimary }]}>{route.duration}</Text>
+          <Text style={[styles.statsUnit, { color: palette.textPrimary }]}>min</Text>
+          <Text style={[styles.statsCost, { color: palette.textPrimary }]}>
             £{route.price.toFixed(2)}
           </Text>
         </View>

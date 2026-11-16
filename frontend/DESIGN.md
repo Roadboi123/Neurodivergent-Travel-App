@@ -18,17 +18,19 @@ there is **no Tailwind and no HTML/CSS**. Everything is `StyleSheet` + the token
 
 ## The Clearway design language (use the tokens, don't reinvent)
 
-A single, calm theme — **there is no light/dark toggle anymore** (`useColorScheme()` always
-returns `'light'`; the old `ThemeProvider`/`ThemeToggle` are gone/no-ops). All tokens live in
+Clearway supports light and dark modes. The Preferences switch saves the user's choice;
+before a choice is saved, the app follows the device setting. All tokens live in
 `src/constants/theme.ts`. Import `CLEARWAY`, `GLASS`, `Radii`, `softShadow`, `ClearwayFonts`
 directly; the older names (`getPalette`, `getAccents`, `getSemanticColors`, `hardShadow`,
 `BRAND`) are kept as **compatibility shims that now return calm Clearway values** so the tree
 keeps compiling — prefer the new tokens in new code.
 
 ### Colour (`CLEARWAY`)
-- **Background:** a pale blue-grey field (`bgBase #d5dbe1`) under a few large, diffuse pastel
+- **Light background:** a pale blue-grey field (`bgBase #d5dbe1`) under a few large, diffuse pastel
   **mesh blobs** (`meshBlue / meshLilac / meshPeach`). Painted by `GradientBackground` — static,
   no animation. **Each screen mounts its own** (RN-web gotcha below).
+- **Dark background:** a deep navy field with a subdued blue-to-violet gradient. Text and glass
+  surfaces use the dark palette; functional sensory and TfL line colours keep their meanings.
 - **Text:** `heading #1a1c1e` (near-black, big headings), `ink #33363b` (body/primary),
   `textSecondary #5a5e66`, `textMuted #878d96`, `onGlassDark #f4f6f9` (on dark glass).
 - **Accent (single, soft blue):** `blue #5b8fd6`, `blueStrong #2f6fed` (links/active), and the
@@ -126,7 +128,7 @@ Vercel stay green), so fetch a browser once: `npx puppeteer browsers install chr
 ## Hard rules
 - Match the deck; don't embellish or "improve" it.
 - Don't stop after a single screenshot pass.
-- Single calm theme — don't reintroduce a light/dark toggle or the Wero palette.
+- Keep both Clearway modes calm and readable; don't reintroduce the Wero palette.
 - Soft shadows only; mixed-case headings; 1px hairline borders; glass surfaces via the primitives.
 - Respect the **frozen `GET /routes/` contract** and the DI/services architecture (see `CLAUDE.md`).
 - New UI goes in `src/components/{area}/` — kebab-case files, PascalCase exports.

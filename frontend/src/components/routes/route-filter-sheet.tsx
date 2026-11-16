@@ -49,9 +49,9 @@ export function RouteFilterSheet({
         {/* Stop backdrop taps from closing when they land on the sheet itself */}
         <TouchableOpacity
           activeOpacity={1}
-          style={[styles.sheet, { backgroundColor: GLASS.light.fill, borderColor: GLASS.light.border }]}
+          style={[styles.sheet, { backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill, borderColor: GLASS[isDark ? 'dark' : 'light'].border }]}
           onPress={(e) => e.stopPropagation()}>
-          <BlurView intensity={GLASS.light.blur} tint="light" style={StyleSheet.absoluteFill} />
+          <BlurView intensity={GLASS[isDark ? 'dark' : 'light'].blur} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} />
           <View style={styles.handle} />
 
           <View style={styles.header}>

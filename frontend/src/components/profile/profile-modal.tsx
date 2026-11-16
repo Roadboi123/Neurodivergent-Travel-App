@@ -74,7 +74,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
 
   const handleLogin = async () => {
     const user = inputName.trim();
-    const pass = password.trim();
+    const pass = password;
 
     if (!user || !pass) {
       setErrorMsg('Please enter both username and password');
@@ -110,8 +110,8 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
 
   const handleRegister = async () => {
     const user = inputName.trim();
-    const pass = password.trim();
-    const confirm = confirmPassword.trim();
+    const pass = password;
+    const confirm = confirmPassword;
 
     if (!user || !pass || !confirm) {
       setErrorMsg('All fields are required');
@@ -200,7 +200,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
         <Pressable style={styles.backdrop} onPress={handleClose}>
           <TouchableOpacity
             activeOpacity={1}
-            style={[styles.sheet, { backgroundColor: GLASS.light.fill, borderColor: GLASS.light.border }]}
+            style={[styles.sheet, { backgroundColor: GLASS[isDark ? 'dark' : 'light'].fill, borderColor: GLASS[isDark ? 'dark' : 'light'].border }]}
             // Tapping the sheet (outside an input) dismisses the keyboard on
             // native; stopPropagation keeps the backdrop from closing the modal.
             // On web the press bubbles up from the inputs, so calling
@@ -213,7 +213,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
               }
             }}
           >
-            <BlurView intensity={GLASS.light.blur} tint="light" style={StyleSheet.absoluteFill} pointerEvents="none" />
+            <BlurView intensity={GLASS[isDark ? 'dark' : 'light'].blur} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} pointerEvents="none" />
             <View style={styles.handle} />
 
           <View style={styles.header}>
@@ -282,14 +282,14 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
                 {errorMsg ? (
                   <View style={[styles.alertCard, styles.alertError, { backgroundColor: 'rgba(207,107,91,0.12)' }]}>
                     <Ionicons name="alert-circle" size={18} color={CLEARWAY.bad} />
-                    <Text style={[styles.alertText, { color: '#a8392c' }]}>{errorMsg}</Text>
+                    <Text style={[styles.alertText, { color: isDark ? '#ffab9d' : '#a8392c' }]}>{errorMsg}</Text>
                   </View>
                 ) : null}
 
                 {successMsg ? (
                   <View style={[styles.alertCard, styles.alertSuccess, { backgroundColor: 'rgba(91,157,107,0.14)' }]}>
                     <Ionicons name="checkmark-circle" size={18} color={CLEARWAY.good} />
-                    <Text style={[styles.alertText, { color: '#3c7a4e' }]}>{successMsg}</Text>
+                    <Text style={[styles.alertText, { color: isDark ? '#9ed5a9' : '#3c7a4e' }]}>{successMsg}</Text>
                   </View>
                 ) : null}
 
@@ -300,7 +300,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
                     style={[
                       styles.textInput,
                       {
-                        backgroundColor: 'rgba(255,255,255,0.5)',
+                        backgroundColor: palette.surface,
                         borderColor: palette.border,
                         color: palette.textPrimary,
                       },
@@ -320,7 +320,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
                     style={[
                       styles.textInput,
                       {
-                        backgroundColor: 'rgba(255,255,255,0.5)',
+                        backgroundColor: palette.surface,
                         borderColor: palette.border,
                         color: palette.textPrimary,
                       },
@@ -381,7 +381,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
                         {"Don't have an account? "}
                       </Text>
                       <TouchableOpacity onPress={() => { setMode('register'); setErrorMsg(''); }}>
-                        <Text style={[styles.toggleLink, { color: CLEARWAY.blueStrong }]}>Sign Up</Text>
+                        <Text style={[styles.toggleLink, { color: isDark ? '#9cc4ff' : CLEARWAY.blueStrong }]}>Sign Up</Text>
                       </TouchableOpacity>
                     </View>
                   ) : (
@@ -390,7 +390,7 @@ export function ProfileModal({ visible, onClose }: ProfileModalProps) {
                         Already have an account?{' '}
                       </Text>
                       <TouchableOpacity onPress={() => { setMode('login'); setErrorMsg(''); }}>
-                        <Text style={[styles.toggleLink, { color: CLEARWAY.blueStrong }]}>Sign In</Text>
+                        <Text style={[styles.toggleLink, { color: isDark ? '#9cc4ff' : CLEARWAY.blueStrong }]}>Sign In</Text>
                       </TouchableOpacity>
                     </View>
                   )}

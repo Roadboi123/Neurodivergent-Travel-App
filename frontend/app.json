@@ -27,11 +27,11 @@
       "favicon": "./assets/images/favicon.png",
       "pwa": {
         "manifest": {
-          "name": "Roadboi",
-          "short_name": "Roadboi",
+          "name": "Clearway",
+          "short_name": "Clearway",
           "display": "standalone",
-          "background_color": "#FAF9F6",
-          "theme_color": "#E91E63"
+          "background_color": "#d5dbe1",
+          "theme_color": "#d5dbe1"
         }
       }
     },

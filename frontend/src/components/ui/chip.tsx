@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } fro
 
 import { Glass } from '@/components/ui/glass';
 import { CLEARWAY, ClearwayFonts, Radii, softShadow } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export interface ChipProps {
   label: string;
@@ -19,9 +20,10 @@ export interface ChipProps {
  * dims + nudges scale.
  */
 export function Chip({ label, selected, onPress, selectedColor, style }: ChipProps) {
+  const isDark = useColorScheme() === 'dark';
   const text = (
     <Text
-      style={[styles.label, { color: selected ? CLEARWAY.white : CLEARWAY.ink }]}
+      style={[styles.label, { color: selected ? CLEARWAY.white : isDark ? '#e8edf5' : CLEARWAY.ink }]}
       numberOfLines={1}>
       {label}
     </Text>
@@ -38,7 +40,7 @@ export function Chip({ label, selected, onPress, selectedColor, style }: ChipPro
           <View style={[styles.pad, { backgroundColor: selectedColor }, softShadow(1)]}>{text}</View>
         ) : (
           <LinearGradient
-            colors={[CLEARWAY.bluePillTo, CLEARWAY.blue]}
+            colors={isDark ? ['#4174b8', '#254976'] : [CLEARWAY.blue, '#3169b4']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={[styles.pad, softShadow(1)]}>
